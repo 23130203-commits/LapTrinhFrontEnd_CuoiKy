@@ -1,0 +1,14 @@
+.main-Layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: left;
+}
+.main-layout-content {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    box-sizing: border-box;
+}

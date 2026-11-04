@@ -1,0 +1,108 @@
+#root {
+    width: 1650px;
+    max-width: 100%;
+    min-height: 100vh;
+}
+.header{
+    position: sticky;
+    top: 0;
+    background-color: white;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.header a{
+    text-decoration: none;
+    color: inherit;
+}
+.header-container {
+    max-width: 1650px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+.header-top {
+    background-color: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 15px;
+    color: #6b7280;
+}
+.header-top-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+}
+.header-top-links {
+    display: flex;
+    gap: 10px;
+}
+.header-top-links a:hover {
+    color: #0b4a9e;
+}
+.header-main {
+    display: flex;
+    align-content: center;
+    gap: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.header-logo {
+    font-size: 36px;
+    font-weight: bold;
+}
+.logo-blue {
+    color: #0b4a9e;
+}
+.logo-red {
+    color: #c30b0b;
+}
+.header-search {
+    display: flex;
+    flex: 1;
+    max-width: 300px;
+    margin-left: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.header-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px 14px;
+    font-size: 15px;
+}
+.header-search button {
+    border: none;
+    background-color: #0b4a9e;
+    color: #fff;
+    padding: 0 16px;
+    cursor: pointer;
+}
+.header-login:hover {
+    background-color: #0b4a9e;
+    color: #fff;
+}
+.header-nav {
+    background-color: #f8f8f8;
+}
+.header-nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+}
+.header-nav-list a {
+    display: block;
+    padding: 14px 16px;
+    color: #202020;
+    font-weight: bold;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+.header-nav-list a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.header-nav-list a.active {
+    border-bottom: 3px solid #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+}
