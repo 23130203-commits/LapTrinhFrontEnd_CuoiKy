@@ -1,26 +1,27 @@
 import type {ReactNode} from "react";
 import Header from "../components/Header.tsx";
+import Footer from "../components/Footer.tsx";
 import "./MainLayout.css"
 
 
 interface MainLayoutProps {
-    children: ReactNode
+    content: ReactNode
     activeCategory?: string
     goHome?: () => void
     selectCategory?: (category: string) => void
     search?: (keyword: string) => void
 }
 
-function MainLayout({ children, activeCategory, goHome, selectCategory, search }: MainLayoutProps) {
+function MainLayout({ content, activeCategory, goHome, selectCategory, search }: MainLayoutProps) {
     return (
         <div className="main-Layout">
             <Header activeCategory={activeCategory}
                     goHome={goHome}
                     selectCategory={selectCategory}
                     search={search}></Header>
-            <main className="main-layout-content">{children}</main>
+            <main className="main-layout-content">{content}</main>
 
-            <footer></footer>
+            <Footer />
         </div>
     )
 }
