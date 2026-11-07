@@ -35,17 +35,14 @@
     color: #3a3a3a;
 }
 .logo {
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    line-height: 1;
-    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
 }
-.logo-blue {
-    color: #0b4a9e;
-}
-.logo-red {
-    color: #c30b0b;
+
+.logo img {
+    width: 125px;
+    height: auto;
+    object-fit: contain;
 }
 .row h1 {
     margin: 0 0 12px;

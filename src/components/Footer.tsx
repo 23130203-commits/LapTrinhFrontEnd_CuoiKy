@@ -1,4 +1,5 @@
 import './css/footer.css'
+import logo from '../assets/VNN.png'
 
 const cot1 = ["Chính trị", "Thời sự", "Kinh doanh", "Dân tộc và tôn giáo", "Thể thao", "Giáo dục"]
 const cot2 = ["Thế giới", "Đời sống", "Văn hóa - Giải trí", "Sức khỏe", "Công nghệ", "Ô tô - xe máy"]
@@ -20,8 +21,7 @@ function Footer() {
             <div className="footer-container">
                 <div className="infor">
                     <div className="logo">
-                        <span className="logo-blue">VietNam</span>
-                        <span className="logo-red">Net</span>
+                        <img src={logo} alt="VietNamNet"/>
                     </div>
                     <p>Cơ quan chủ quản: Bộ Dân tộc và Tôn giáo</p>
                     <p>Số giấy phép:     </p>
