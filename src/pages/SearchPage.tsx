@@ -5,7 +5,6 @@ type Props = {
     keyword: string
     onOpen?: (id: number) => void
 }
-
 function SearchPage({ keyword, onOpen }: Props) {
     const key = keyword.trim().toLowerCase()
     const result: Article[] = []
@@ -16,7 +15,6 @@ function SearchPage({ keyword, onOpen }: Props) {
             }
         }
     }
-
     return (
         <div>
             <h2>Kết quả tìm kiếm cho "{keyword}"</h2>
