@@ -259,6 +259,23 @@ button {
   font-weight: 700;
 }
 
+.news-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-card-image::before {
+  z-index: 1; /* lớp tối nằm trên ảnh để chữ nhãn đọc rõ */
+}
+
+.featured-title,
+.news-card-title {
+  overflow-wrap: anywhere;
+}
+
 .news-card-body {
   padding: 14px 15px 15px;
 }
@@ -352,6 +369,21 @@ button {
 
 .latest-featured-mobile {
   display: none;
+}
+
+@media (max-width: 1024px) {
+  .top-news {
+    grid-template-columns: minmax(0, 1.2fr) minmax(240px, 1fr);
+    gap: 20px;
+  }
+
+  .featured-visual {
+    min-height: 240px;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {

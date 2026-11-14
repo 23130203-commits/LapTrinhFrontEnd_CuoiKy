@@ -1,4 +1,8 @@
 import type { Article } from '../types/news'
+import { useState } from 'react'
+import { formatDate } from '../utils/date'
+
+type ArticleWithImage = Article & { imageUrl?: string }
 
 type NewsCardProps = {
     article: Article
@@ -11,6 +15,10 @@ function NewsCard({
                       onSelect,
                       variant = 'default'
                   }: NewsCardProps) {
+    const [imageFailed, setImageFailed] = useState(false)
+    const imageUrl = (article as ArticleWithImage).imageUrl
+    const showImage = Boolean(imageUrl) && !imageFailed
+
     return (
         <article
             className={`news-card ${
@@ -23,6 +31,15 @@ function NewsCard({
                 onClick={() => onSelect(article)}
                 aria-label={`Đọc bài ${article.title}`}
             >
+                {showImage && (
+                    <img
+                        className="news-card-img"
+                        src={imageUrl}
+                        alt={article.title}
+                        loading="lazy"
+                        onError={() => setImageFailed(true)}
+                    />
+                )}
                 <span className="image-label">
                     {article.category}
                 </span>
@@ -43,7 +60,7 @@ function NewsCard({
 
                 {variant !== 'compact' && (
                     <p className="news-card-summary">
-                        {article.summary}
+                        {article.summary || 'Chưa có mô tả cho bài viết này.'}
                     </p>
                 )}
 
@@ -51,7 +68,7 @@ function NewsCard({
                     <span>{article.author}</span>
 
                     <span>
-                        {new Date(article.date).toLocaleDateString('vi-VN')}
+                        {formatDate(article.date)}
                     </span>
                 </div>
             </div>
