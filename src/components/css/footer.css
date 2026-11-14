@@ -28,7 +28,7 @@
 }
 .infor p {
     margin: 0 0 6px;
-    color: #9f9f9f;
+    color: #575757;
 }
 .infor a {
     font-weight: 600;
@@ -78,4 +78,35 @@
 }
 .bottom p:last-child {
     margin-bottom: 0;
+}
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.footer-social a:nth-child(1) {
+    background-color: blue;
+    color: white;
+}
+
+.footer-social a:nth-child(2) {
+    background-color: red;
+    color: white;
+}
+
+.footer-social a:nth-child(3) {
+    background-color: black;
+    color: white;
 }

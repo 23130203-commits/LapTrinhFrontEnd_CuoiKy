@@ -21,7 +21,10 @@ function MainLayout({ content, activeCategory, goHome, selectCategory, search }:
                     search={search}></Header>
             <main className="main-layout-content">{content}</main>
 
-            <Footer />
+            <Footer
+                goHome={goHome}
+                selectCategory={selectCategory}
+            />
         </div>
     )
 }

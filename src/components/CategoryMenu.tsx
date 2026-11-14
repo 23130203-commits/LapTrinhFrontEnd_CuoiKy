@@ -117,10 +117,14 @@ const categories = [
 
 function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuProps) {
     const [isMenu, setIsMenu] = useState(false)
-    const handleClick = (e: MouseEvent<HTMLAnchorElement>, name: string, link: string) => {
-        if (link === '#') e.preventDefault()
-        if (link !== '#' && selectCategory) selectCategory(name)
+    const [openCategory, setOpenCategory] = useState<string | null>(null)
+    const [closeCategory, setCloseCategory] = useState<string | null>(null)
+    const handleClick = (e: MouseEvent<HTMLAnchorElement>, name: string, parentCategory: string = name) => {
+        e.preventDefault()
+        selectCategory?.(name)
         setIsMenu(false)
+        setOpenCategory(null)
+        setCloseCategory(parentCategory)
     }
     return (
         <>
@@ -136,17 +140,23 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
                         </a>
                     </li>
                     {categories.map((category) => (
-                        <li className="category-item" key={category.name}>
+                        <li className="category-item" key={category.name} onMouseEnter={() => {
+                            if (closeCategory !== category.name) setOpenCategory(category.name)
+                        }}
+                            onMouseLeave={() => {
+                                setOpenCategory(null)
+                                setCloseCategory(null)
+                            }}>
                             <a href={category.link}
                                className={activeCategory === category.name || category.subCategory.some(sub => sub.name === activeCategory) ? 'active' : ''}
-                               onClick={(e) => handleClick(e, category.name, category.link)}>
+                               onClick={(e) => handleClick(e, category.name)}>
                                 {category.name}
                             </a>
                             {category.subCategory.length > 0 && (
-                                <ul className="dropdown-menu">
+                                <ul className="dropdown-menu" style={{display: openCategory === category.name ? 'block' : 'none'}}>
                                     {category.subCategory.map(sub => (
                                         <li key={sub.name}>
-                                            <a href={sub.link} onClick={(e) => handleClick(e, sub.name, sub.link)}>{sub.name}</a>
+                                            <a href={sub.link} onClick={(e) => handleClick(e, sub.name, category.name)}>{sub.name}</a>
                                         </li>
                                     ))}
                                 </ul>
@@ -174,7 +184,7 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
                                     <ul>
                                         {category.subCategory.map(sub => (
                                             <li key={sub.name}>
-                                                <a href={sub.link} onClick={(e) => handleClick(e, sub.name, sub.link)}>{sub.name}</a>
+                                                <a href={sub.link} onClick={(e) => handleClick(e, sub.name, category.name)}>{sub.name}</a>
                                             </li>
                                         ))}
                                     </ul>
