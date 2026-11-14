@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { Article } from '../types/news'
 import { newsList } from '../data/news'
 import NewsCard from '../components/NewsCard'
+import { formatDate, getTime } from '../utils/date'
 
 type HomePageProps = {
     activeCategory?: string
@@ -27,6 +28,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                 (!normalizedKeyword || searchableText.includes(normalizedKeyword))
             )
         })
+            .sort((a, b) => getTime(b.date) - getTime(a.date))
     }, [activeCategory, keyword])
 
     const featuredArticle = filteredNews[0]
@@ -56,7 +58,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                 <div className="news-meta article-byline">
                     <span>{selectedArticle.author}</span>
                     <span>
-                        {new Date(selectedArticle.date).toLocaleDateString('vi-VN')}
+                        {formatDate(selectedArticle.date)}
                     </span>
                 </div>
 
@@ -128,12 +130,12 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                     {featuredArticle.title}
                                 </button>
 
-                                <p>{featuredArticle.summary}</p>
+                                <p>{featuredArticle.summary|| 'Chưa có mô tả cho bài viết này.'}</p>
 
                                 <div className="news-meta">
                                     <span>{featuredArticle.author}</span>
                                     <span>
-                                        {new Date(featuredArticle.date).toLocaleDateString('vi-VN')}
+                                        {formatDate(featuredArticle.date)}
                                     </span>
                                 </div>
 
