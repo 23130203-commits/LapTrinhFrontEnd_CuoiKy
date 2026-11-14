@@ -48,9 +48,6 @@
 .header-nav-list .dropdown-menu li a {
     font-size: 14px;
 }
-.category-item:hover > .dropdown-menu, .category-item:focus-within > .dropdown-menu {
-    display: block;
-}
 .header-nav-list .dropdown-menu li a:hover, .header-nav-list .dropdown-menu li a:focus-visible {
     background-color: #adc7e4;
     color: var(--bg);

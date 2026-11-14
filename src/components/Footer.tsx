@@ -1,5 +1,7 @@
 import './css/footer.css'
+import {type MouseEvent} from 'react'
 import logo from '../assets/VNN.png'
+import { FaFacebookF, FaYoutube, FaTiktok } from 'react-icons/fa6'
 
 const cot1 = ["Chính trị", "Thời sự", "Kinh doanh", "Dân tộc và tôn giáo", "Thể thao", "Giáo dục"]
 const cot2 = ["Thế giới", "Đời sống", "Văn hóa - Giải trí", "Sức khỏe", "Công nghệ", "Ô tô - xe máy"]
@@ -13,33 +15,51 @@ const columns = [
     { title: "Đa phương tiện", items: cot4 },
     { title: "Liên hệ", items: lienHe }]
 
-function Footer() {
+interface FooterProps {
+    goHome?: () => void
+    selectCategory?: (category: string) => void
+}
+
+function Footer({goHome, selectCategory}: FooterProps) {
     const year = new Date().getFullYear();
+    const handleLink = (e: MouseEvent<HTMLAnchorElement>, item: string) => {
+        e.preventDefault()
+        selectCategory?.(item)
+    }
 
     return (
         <footer className="footer">
             <div className="footer-container">
                 <div className="infor">
                     <div className="logo">
-                        <img src={logo} alt="VietNamNet"/>
+                        <a href="/" onClick={(e) => {
+                            e.preventDefault()
+                            goHome?.()
+                        }}><img src={logo} alt="VietNamNet"/>
+                        </a>
                     </div>
                     <p>Cơ quan chủ quản: Bộ Dân tộc và Tôn giáo</p>
-                    <p>Số giấy phép:     </p>
-                    <p>Tổng biên tập:    </p>
-                    <p>Địa chỉ:          </p>
-                    <p>Điện thoại:    - Hotline: </p>
-                    <p>Email:            </p>
-                    <p>Theo dõi VietNamNet trên</p>
+                    <p>Số giấy phép: DEMO-FE-2026</p>
+                    <p>Tổng biên tập: Ban biên tập website mô phỏng</p>
+                    <p>Địa chỉ: Quận 1, TP. Hồ Chí Minh</p>
+                    <p>Điện thoại: 028 1234 5678 - Hotline: 1900 0000</p>
+                    <p>Email: contact@example.com</p>
+                    <p>Theo dõi VietNamNet trên: Facebook, YouTube, TikTok</p>
+                    <div className="footer-social">
+                        <a href="https://www.facebook.com/vietnamnet.vn"><FaFacebookF /></a>
+                        <a href="https://www.youtube.com/c/B%C3%A1oVietNamNetTV"><FaYoutube /></a>
+                        <a href="https://www.tiktok.com/@vietnamnet.vn"><FaTiktok /></a>
+                    </div>
                 </div>
 
                 {columns.map((col) => (
                     <div className="row" key={col.title}>
-                        <h1>{col.title}</h1>
-                        <ul>
-                            {col.items.map((item) => (
-                                <li key={item}><a href="#">{item}</a></li>
-                            ))}
-                        </ul>
+                        <h2>{col.title}</h2>
+                        <ul>{col.items.map((item) => (
+                            <li key={item}>
+                                <a href="#" onClick={(e) => handleLink(e, item)}>{item}</a>
+                            </li>
+                        ))}</ul>
                     </div>
                 ))}
             </div>

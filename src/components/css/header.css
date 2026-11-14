@@ -85,3 +85,17 @@
     background-color: #0b4a9e;
     color: #fff;
 }
+.demo-messenge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 20px;
+    font-size: 14px;
+}
+.demo-messenge button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}

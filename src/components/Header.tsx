@@ -13,6 +13,7 @@ interface HeaderProps {
 
 function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps) {
     const [keyword, setKeyword] = useState('')
+    const [demoMessenge, setDemoMessenge] = useState('')
     const today = new Date().toLocaleDateString('vi-VN', {
         weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
     })
@@ -32,9 +33,18 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                 <div className="header-container header-top-content">
                     <span>{today}</span>
                     <div className="header-top-links">
-                        <a href="#" onClick={(e) => e.preventDefault()}>Tin mới đọc</a>
-                        <a href="#" onClick={(e) => e.preventDefault()}>Đọc nhiều</a>
-                        <a href="#" onClick={(e) => e.preventDefault()}>Liên hệ</a>
+                        <a href="#" onClick={(e) => {
+                            e.preventDefault()
+                            setDemoMessenge('"Tin mới đọc" hiện chưa có trong demo')
+                        }}>Tin mới đọc</a>
+                        <a href="#" onClick={(e) => {
+                            e.preventDefault()
+                            setDemoMessenge('"Đọc nhiều" hiện chưa có trong demo')
+                        }}>Đọc nhiều</a>
+                        <a href="#" onClick={(e) => {
+                            e.preventDefault()
+                            setDemoMessenge('"Liên hệ" hiện chưa được hỗ trợ trong demo')
+                        }}>Liên hệ</a>
                     </div>
                 </div>
             </div>
@@ -50,6 +60,12 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                 <button type="button" className="header-login">Đăng nhập</button>
             </div>
             <CategoryMenu activeCategory={activeCategory} goHome={goHome} selectCategory={selectCategory} />
+            {demoMessenge && (
+                <div className="demo-messenge" role="status">
+                    <span>{demoMessenge}</span>
+                    <button type="button" onClick={() => setDemoMessenge('')}>X</button>
+                </div>
+            )}
         </header>
     )
 }
