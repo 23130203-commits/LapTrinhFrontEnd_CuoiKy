@@ -1,6 +1,7 @@
 import {useState} from "react";
 import type {MouseEvent} from "react";
 import './css/categoryMenu.css'
+import * as React from "react";
 
 interface CategoryMenuProps {
     activeCategory?: string
@@ -126,9 +127,23 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
         setOpenCategory(null)
         setCloseCategory(parentCategory)
     }
+    const handleEscape = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.key !== 'Escape') return
+        if (openCategory) {
+            const category = openCategory
+            setOpenCategory(null)
+            setCloseCategory(category)
+            const parentLink = document.getElementById(`category-${categories.findIndex(c => c.name === category)}`)
+            parentLink?.focus()
+        }
+        if (isMenu) {
+            setIsMenu(false)
+            document.getElementById('menu-toggle')?.focus()
+        }
+    }
     return (
         <>
-            <nav className="header-nav" aria-label="Danh mục tin tức">
+            <nav className="header-nav" aria-label="Danh mục tin tức" onKeyDown={handleEscape}>
                 <ul className="header-container header-nav-list">
                     <li className="home-item">
                         <a href="#" aria-label="Trang chủ" title="Trang chủ"
@@ -146,14 +161,23 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
                             onMouseLeave={() => {
                                 setOpenCategory(null)
                                 setCloseCategory(null)
+                            }}
+                            onFocus={() => {
+                                if (closeCategory !== category.name) setOpenCategory(category.name)
+                            }}
+                            onBlur={(e) => {
+                                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpenCategory(null)
                             }}>
-                            <a href={category.link}
+                            <a id={`category-${categories.findIndex(c => c.name === category.name)}`}
+                               href={category.link}
                                className={activeCategory === category.name || category.subCategory.some(sub => sub.name === activeCategory) ? 'active' : ''}
-                               onClick={(e) => handleClick(e, category.name)}>
-                                {category.name}
+                               onClick={(e) => handleClick(e, category.name)}
+                               aria-haspopup="true" aria-expanded={openCategory === category.name}
+                               aria-controls={`submenu-${category.name}`}>
+                               {category.name}
                             </a>
                             {category.subCategory.length > 0 && (
-                                <ul className="dropdown-menu" style={{display: openCategory === category.name ? 'block' : 'none'}}>
+                                <ul id={`submenu-${category.name}`} className="dropdown-menu" style={{display: openCategory === category.name ? 'block' : 'none'}}>
                                     {category.subCategory.map(sub => (
                                         <li key={sub.name}>
                                             <a href={sub.link} onClick={(e) => handleClick(e, sub.name, category.name)}>{sub.name}</a>
@@ -163,17 +187,19 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
                             )}
                         </li>
                     ))}
-                    <li className="menu">
+                    <li id="menu-toggle" className="menu">
                         <button type="button" className="menu-toggle"
                                 onClick={() => setIsMenu(!isMenu)}
-                                aria-label="Tất cả chuyên mục" aria-expanded={isMenu}>
+                                aria-label="Tất cả chuyên mục" aria-expanded={isMenu}
+                                aria-controls="all-categories"
+                                onKeyDown={handleEscape}>
                             {isMenu ? '✕' : '☰'}
                         </button>
                     </li>
                 </ul>
             </nav>
             {isMenu && (
-                <div className="category-menu">
+                <div id="all-categories" className="category-menu" onKeyDown={handleEscape}>
                     <div className="header-container">
                         <div className="all-category">
                             <h3>Tất cả chuyên mục</h3>
