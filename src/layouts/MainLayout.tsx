@@ -19,7 +19,7 @@ function MainLayout({ content, activeCategory, goHome, selectCategory, search }:
                     goHome={goHome}
                     selectCategory={selectCategory}
                     search={search}></Header>
-            <main className="main-layout-content">{content}</main>
+            <main id="main-content" className="main-layout-content">{content}</main>
 
             <Footer
                 goHome={goHome}
