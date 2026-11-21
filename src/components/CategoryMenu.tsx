@@ -201,21 +201,49 @@ function CategoryMenu({activeCategory, goHome, selectCategory} : CategoryMenuPro
             {isMenu && (
                 <div id="all-categories" className="category-menu" onKeyDown={handleEscape}>
                     <div className="header-container">
-                        <div className="all-category">
-                            <h3>Tất cả chuyên mục</h3>
-                        </div>
-                        <div className="category-grid">
-                            {categories.map(category => (
-                                <div className="group" key={category.name}>
-                                    <ul>
-                                        {category.subCategory.map(sub => (
-                                            <li key={sub.name}>
-                                                <a href={sub.link} onClick={(e) => handleClick(e, sub.name, category.name)}>{sub.name}</a>
-                                            </li>
-                                        ))}
-                                    </ul>
+                        <div className="menu-layout">
+                            <div className="menu-main">
+                                <div className="menu-column">
+                                    {['Chính trị', 'Thời sự', 'Kinh doanh', 'Dân tộc và Tôn giáo', 'Thể thao', 'Giáo dục'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
                                 </div>
-                            ))}
+                                <div className="menu-column">
+                                    {['Thế giới', 'Đời sống', 'Văn hóa - Giải trí', 'Sức khỏe', 'Công nghệ', 'Xe', 'Du lịch'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+                                <div className="menu-column">
+                                    {['Bất động sản', 'Bạn đọc', 'Tuần Việt Nam', 'Công nghiệp hỗ trợ', 'Giảm nghèo bền vững', 'Nông thôn mới', 'Dân tộc thiểu số và miền núi'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+                                <div className="menu-column">
+                                    {['Nội dung chuyên đề', 'English', 'Đính chính'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <aside className="menu-sidebar">
+                                <div className="menu-sidebar-group">
+                                    {['Talks', 'Hồ sơ', 'Ảnh', 'Video', 'Multimedia', 'Podcast', '24h qua'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+
+                                <div className="menu-sidebar-group">
+                                    {['Tuyến bài', 'Sự kiện nóng'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+
+                                <div className="menu-sidebar-group">
+                                    {['Liên hệ tòa soạn', 'Liên hệ quảng cáo', 'Độc giả gửi bài', 'Tuyển dụng', 'Lịch vạn niên'].map(name => (
+                                        <a key={name} href="#" onClick={(e) => handleClick(e, name)}>{name}</a>
+                                    ))}
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>
