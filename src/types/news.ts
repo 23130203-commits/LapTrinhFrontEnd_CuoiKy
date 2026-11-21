@@ -6,4 +6,7 @@ export type Article = {
     category: string
     author: string
     date: string
+    source?: string
+    sourceUrl?: string
+    imageUrl?: string
 }

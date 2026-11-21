@@ -2,23 +2,28 @@ import type { ReactNode } from 'react'
 import { newsList } from '../data/news'
 import type { Article } from '../types/news'
 import NewsCard from '../components/NewsCard'
+import { getTime } from '../utils/date'
 
 type Props = {
     keyword: string
-    onSelect: (article: Article) => void
+    articles?: Article[]
+    onOpen: (id: number) => void
 }
 
-function SearchPage({ keyword, onSelect }: Props) {
+function SearchPage({ keyword, articles = newsList, onOpen }: Props) {
     const key = keyword.trim().toLocaleLowerCase('vi')
     const result: Article[] = []
     if (key !== '') {
-        for (const item of newsList) {
+        for (const item of articles) {
             const text = (item.title + ' ' + item.summary + ' ' + item.content + ' ' + item.category).toLocaleLowerCase('vi')
             if (text.includes(key)) {
                 result.push(item)
             }
         }
     }
+    result.sort((a, b) => getTime(b.date) - getTime(a.date))
+
+    const openCard = (article: Article) => onOpen(article.id)
 
     let body: ReactNode
     if (key === '') {
@@ -44,12 +49,13 @@ function SearchPage({ keyword, onSelect }: Props) {
                 </div>
                 <div className="news-grid">
                     {result.map((item) => (
-                        <NewsCard key={item.id} article={item} onSelect={onSelect} />
+                        <NewsCard key={item.id} article={item} onSelect={openCard} />
                     ))}
                 </div>
             </section>
         )
     }
+
     return (
         <div className="home-page">
             <div className="page-heading">
