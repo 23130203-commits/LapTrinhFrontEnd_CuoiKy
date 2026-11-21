@@ -1,19 +1,25 @@
 import { newsList } from '../data/news'
 import type { Article } from '../types/news'
 import NewsCard from '../components/NewsCard'
+import { getTime } from '../utils/date'
 
 type Props = {
     category: string
-    onSelect: (article: Article) => void
+    articles?: Article[]
+    onOpen: (id: number) => void
 }
-function CategoryPage({ category, onSelect }: Props) {
+
+function CategoryPage({ category, articles = newsList, onOpen }: Props) {
     const list: Article[] = []
-    for (const item of newsList) {
+    for (const item of articles) {
         if (item.category === category) {
             list.push(item)
         }
     }
-    list.sort((a, b) => (a.date < b.date ? 1 : -1))
+    list.sort((a, b) => getTime(b.date) - getTime(a.date))
+
+    const openCard = (article: Article) => onOpen(article.id)
+
     return (
         <div className="home-page">
             <div className="page-heading">
@@ -23,6 +29,7 @@ function CategoryPage({ category, onSelect }: Props) {
                 </div>
                 <span className="updated-label">Cập nhật liên tục</span>
             </div>
+
             {list.length === 0 ? (
                 <div className="empty-state">
                     <h2>Chưa có bài viết nào trong mục này</h2>
@@ -36,7 +43,7 @@ function CategoryPage({ category, onSelect }: Props) {
                     </div>
                     <div className="news-grid">
                         {list.map((item) => (
-                            <NewsCard key={item.id} article={item} onSelect={onSelect} />
+                            <NewsCard key={item.id} article={item} onSelect={openCard} />
                         ))}
                     </div>
                 </section>
