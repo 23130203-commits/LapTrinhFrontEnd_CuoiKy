@@ -107,6 +107,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                 className="featured-visual"
                                 type="button"
                                 onClick={() => setSelectedArticle(featuredArticle)}
+                                aria-label={`Đọc tin nổi bật: ${featuredArticle.title}`}
                             >
                                 <span className="featured-tag">
                                     TIN NỔI BẬT
@@ -126,6 +127,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                     className="featured-title"
                                     type="button"
                                     onClick={() => setSelectedArticle(featuredArticle)}
+                                    aria-label={`Đọc bài: ${featuredArticle.title}`}
                                 >
                                     {featuredArticle.title}
                                 </button>
