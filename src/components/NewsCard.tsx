@@ -54,6 +54,7 @@ function NewsCard({
                     className="news-card-title"
                     type="button"
                     onClick={() => onSelect(article)}
+                    aria-label={`Đọc bài: ${article.title}`}
                 >
                     {article.title}
                 </button>
