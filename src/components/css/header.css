@@ -99,3 +99,59 @@
     color: inherit;
     cursor: pointer;
 }
+.read-history {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    background-color: var(--bg);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.history-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #0b4a9e;
+}
+
+.history-header button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.history-list li:last-child {
+    border-bottom: none;
+}
+
+.history-list time {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+}

@@ -3,6 +3,8 @@ import './css/header.css'
 import logo from '../assets/VNN.png'
 import CategoryMenu from './CategoryMenu'
 import type {FormEvent, MouseEvent} from "react"
+import {getReadHistory, readTime} from '../utils/readHistory.ts'
+import type { readHistory } from '../utils/readHistory'
 
 interface HeaderProps {
     activeCategory?: string
@@ -26,6 +28,14 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
         if (keyword.trim() === '') return
         if (search) search(keyword.trim())
     }
+    const [showHistory, setShowHistory] = useState(false)
+    const [readHistory, setReadHistory] = useState<readHistory[]>([])
+    const handleReadHistory = (e: MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault()
+        setDemoMessenge('')
+        setReadHistory(getReadHistory())
+        setShowHistory(prev => !prev)
+    }
 
     return (
         <header className="header">
@@ -33,18 +43,8 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                 <div className="header-container header-top-content">
                     <span>{today}</span>
                     <div className="header-top-links">
-                        <a href="#" onClick={(e) => {
-                            e.preventDefault()
-                            setDemoMessenge('"Tin mới đọc" hiện chưa có trong demo')
-                        }}>Tin mới đọc</a>
-                        <a href="#" onClick={(e) => {
-                            e.preventDefault()
-                            setDemoMessenge('"Đọc nhiều" hiện chưa có trong demo')
-                        }}>Đọc nhiều</a>
-                        <a href="#" onClick={(e) => {
-                            e.preventDefault()
-                            setDemoMessenge('"Liên hệ" hiện chưa được hỗ trợ trong demo')
-                        }}>Liên hệ</a>
+                        <a href="#" onClick={handleReadHistory} aria-expanded={showHistory}>Tin mới đọc</a>
+                        <a href="#" >Đọc nhiều</a>
                     </div>
                 </div>
             </div>
@@ -60,10 +60,33 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                 <button type="button" className="header-login">Đăng nhập</button>
             </div>
             <CategoryMenu activeCategory={activeCategory} goHome={goHome} selectCategory={selectCategory} />
+
             {demoMessenge && (
                 <div className="demo-messenge" role="status">
                     <span>{demoMessenge}</span>
                     <button type="button" onClick={() => setDemoMessenge('')}>X</button>
+                </div>
+            )}
+
+            {showHistory && (
+                <div className="read-history">
+                    <div className="history-header">
+                        <h3>Tin mới đọc</h3>
+                        <button onClick={() => setShowHistory(false)}>X</button>
+                    </div>
+
+                    {readHistory.length === 0 ? (
+                        <p>Bạn chưa đọc bài báo nào.</p>
+                    ) : (
+                        <ul className="history-list">
+                            {readHistory.map(item => (
+                                <li key={item.article.id}>
+                                    <span>{item.article.title}</span>
+                                    <time dateTime={new Date(item.readAt).toISOString()}>{readTime(item.readAt)}</time>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
             )}
         </header>
