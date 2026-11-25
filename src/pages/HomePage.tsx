@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import type { Article } from '../types/news'
 import { newsList } from '../data/news'
 import NewsCard from '../components/NewsCard'
 import { formatDate, getTime } from '../utils/date'
+import { save } from '../utils/readHistory'
 
 type HomePageProps = {
     activeCategory?: string
@@ -11,6 +12,9 @@ type HomePageProps = {
 
 function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
+    useEffect(() => {
+        if (selectedArticle) save(selectedArticle)
+    }, [selectedArticle])
 
     const filteredNews = useMemo(() => {
         const normalizedKeyword = keyword.trim().toLocaleLowerCase('vi')
