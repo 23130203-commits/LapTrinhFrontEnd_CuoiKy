@@ -100,12 +100,18 @@
     cursor: pointer;
 }
 .read-history {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
     max-width: 1250px;
-    margin: 0 auto;
     padding: 15px 20px;
     background-color: var(--bg);
     text-align: left;
     box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1200;
 }
 
 .history-header {
@@ -151,6 +157,20 @@
 }
 
 .history-list time {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+}
+.view-rank {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0b4a9e;
+    min-width: 30px;
+}
+.view-title {
+    flex: 1;
+}
+.view-count {
     font-size: 13px;
     color: #888;
     white-space: nowrap;

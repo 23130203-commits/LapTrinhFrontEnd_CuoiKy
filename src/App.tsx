@@ -8,6 +8,7 @@ import ArticlePage from './pages/ArticlePage.tsx'
 import type {Article} from "./types/news.ts";
 import { newsList } from './data/news'
 import {save} from "./utils/readHistory.ts";
+import {increaseView} from "./utils/numberView.ts";
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('')
@@ -41,6 +42,7 @@ function App() {
 
   const openArticle = (article: Article) => {
     setSelectArticle(article)
+    increaseView(article)
   }
 
   const openArticleById = (id: number) => {
