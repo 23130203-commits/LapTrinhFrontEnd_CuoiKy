@@ -5,6 +5,7 @@ import CategoryMenu from './CategoryMenu'
 import type {FormEvent, MouseEvent} from "react"
 import {getReadHistory, readTime} from '../utils/readHistory.ts'
 import type { readHistory } from '../utils/readHistory'
+import {getNumberView, type numberView} from "../utils/numberView.ts";
 
 interface HeaderProps {
     activeCategory?: string
@@ -33,8 +34,19 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
     const handleReadHistory = (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault()
         setDemoMessenge('')
+        setShowNumberView(false)
         setReadHistory(getReadHistory())
         setShowHistory(prev => !prev)
+    }
+    const [showNumberView, setShowNumberView] = useState(false)
+    const [numberView, setNumberView] = useState<numberView[]>([])
+    const handleNumberView = (e: MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault()
+        setDemoMessenge('')
+        setReadHistory(getReadHistory())
+        setShowHistory(false)
+        setNumberView(getNumberView())
+        setShowNumberView(prev => !prev)
     }
 
     return (
@@ -44,7 +56,7 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                     <span>{today}</span>
                     <div className="header-top-links">
                         <a href="#" onClick={handleReadHistory} aria-expanded={showHistory}>Tin mới đọc</a>
-                        <a href="#" >Đọc nhiều</a>
+                        <a href="#" onClick={handleNumberView} aria-expanded={showNumberView}>Đọc nhiều</a>
                     </div>
                 </div>
             </div>
@@ -83,6 +95,28 @@ function Header({ activeCategory, goHome, selectCategory, search }: HeaderProps)
                                 <li key={item.article.id}>
                                     <span>{item.article.title}</span>
                                     <time dateTime={new Date(item.readAt).toISOString()}>{readTime(item.readAt)}</time>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            )}
+
+            {showNumberView && (
+                <div className="read-history">
+                    <div className="history-header">
+                        <h3>Đọc nhiều</h3>
+                        <button onClick={() => setShowNumberView(false)}>X</button>
+                    </div>
+
+                    {numberView.length === 0 ? (
+                        <p>Chưa có bài báo nào được đọc</p>
+                    ) : (
+                        <ul className="history-list">
+                            {numberView.map((item) => (
+                                <li key={item.article.id}>
+                                    <span className="view-title">{item.article.title}</span>
+                                    <span className="view-count">{item.views} Lượt đọc </span>
                                 </li>
                             ))}
                         </ul>

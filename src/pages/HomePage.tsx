@@ -4,6 +4,7 @@ import { newsList } from '../data/news'
 import NewsCard from '../components/NewsCard'
 import { formatDate, getTime } from '../utils/date'
 import { save } from '../utils/readHistory'
+import {increaseView} from "../utils/numberView.ts";
 
 type HomePageProps = {
     activeCategory?: string
@@ -12,6 +13,10 @@ type HomePageProps = {
 
 function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
+    const openArticle = (article: Article) => {
+        setSelectedArticle(article)
+        increaseView(article)
+    }
     useEffect(() => {
         if (selectedArticle) save(selectedArticle)
     }, [selectedArticle])
@@ -110,7 +115,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                             <button
                                 className="featured-visual"
                                 type="button"
-                                onClick={() => setSelectedArticle(featuredArticle)}
+                                onClick={() => openArticle(featuredArticle)}
                                 aria-label={`Đọc tin nổi bật: ${featuredArticle.title}`}
                             >
                                 <span className="featured-tag">
@@ -130,7 +135,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                 <button
                                     className="featured-title"
                                     type="button"
-                                    onClick={() => setSelectedArticle(featuredArticle)}
+                                    onClick={() => openArticle(featuredArticle)}
                                     aria-label={`Đọc bài: ${featuredArticle.title}`}
                                 >
                                     {featuredArticle.title}
@@ -148,7 +153,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                 <button
                                     className="read-more"
                                     type="button"
-                                    onClick={() => setSelectedArticle(featuredArticle)}
+                                    onClick={() => openArticle(featuredArticle)}
                                 >
                                     Đọc bài viết <span>→</span>
                                 </button>
@@ -177,7 +182,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                                 <NewsCard
                                     key={article.id}
                                     article={article}
-                                    onSelect={setSelectedArticle}
+                                    onSelect={openArticle}
                                 />
                             ))}
                         </div>
@@ -186,7 +191,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                             <div className="latest-featured-mobile">
                                 <NewsCard
                                     article={featuredArticle}
-                                    onSelect={setSelectedArticle}
+                                    onSelect={openArticle}
                                 />
                             </div>
                         )}
