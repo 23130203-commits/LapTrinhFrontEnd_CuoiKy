@@ -3,8 +3,9 @@ import type { Article } from '../types/news'
 import { newsList } from '../data/news'
 import NewsCard from '../components/NewsCard'
 import { formatDate, getTime } from '../utils/date'
-import { save } from '../utils/readHistory'
+import { getReadHistory, save } from '../utils/readHistory'
 import {increaseView} from "../utils/numberView.ts";
+import { getRecommendations } from '../utils/recommendations'
 
 type HomePageProps = {
     activeCategory?: string
@@ -13,6 +14,10 @@ type HomePageProps = {
 
 function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
+    const recommendations = useMemo(
+        () => getRecommendations(getReadHistory(), newsList),
+        [selectedArticle],
+    )
     const openArticle = (article: Article) => {
         setSelectedArticle(article)
         increaseView(article)
@@ -196,6 +201,24 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                             </div>
                         )}
                     </section>
+
+                    {!activeCategory && !keyword && recommendations.length > 0 && (
+                        <section className="news-section" aria-label="Gợi ý đọc tiếp">
+                            <div className="section-title-row">
+                                <h2>Gợi ý đọc tiếp</h2>
+                                <span>Dựa trên tin bạn vừa đọc</span>
+                            </div>
+                            <div className="news-grid">
+                                {recommendations.map((article) => (
+                                    <NewsCard
+                                        key={article.id}
+                                        article={article}
+                                        onSelect={openArticle}
+                                    />
+                                ))}
+                            </div>
+                        </section>
+                    )}
                 </>
             )}
         </div>
