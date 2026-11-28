@@ -178,6 +178,14 @@ button {
   padding-top: 27px;
 }
 
+.recommendations-section {
+  margin-top: 10px;
+  padding: 24px;
+  border: 1px solid #e8ebef;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
 .section-title-row {
   display: flex;
   align-items: center;
@@ -387,6 +395,10 @@ button {
 }
 
 @media (max-width: 760px) {
+  .recommendations-section {
+    padding: 16px 12px;
+  }
+
   .page-heading h1 {
     font-size: 24px;
   }
