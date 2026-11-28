@@ -203,7 +203,7 @@ function HomePage({ activeCategory, keyword = '' }: HomePageProps) {
                     </section>
 
                     {!activeCategory && !keyword && recommendations.length > 0 && (
-                        <section className="news-section" aria-label="Gợi ý đọc tiếp">
+                        <section className="news-section recommendations-section" aria-label="Gợi ý đọc tiếp">
                             <div className="section-title-row">
                                 <h2>Gợi ý đọc tiếp</h2>
                                 <span>Dựa trên tin bạn vừa đọc</span>
